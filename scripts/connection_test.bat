@@ -1,0 +1,4 @@
+set ROS_DOMAIN_ID=42
+set ROS_AUTOMATIC_DISCOVERY_RANGE=SUBNET
+
+ros2 doctor hello

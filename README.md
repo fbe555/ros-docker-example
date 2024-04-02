@@ -18,7 +18,7 @@ In order to replicate this issue, perform the following steps:
 4. Once the container has started, run ```./scripts/connection_test.bash``` inside of the container.
 5. Open a Visual Studio Developper console on the host machine.
 6. Source the host ROS setup script
-7. Run ```ros2 doctor hello``` on the host machine.
+7. Run ```scripts/connection_test.bat``` on the host machine.
 
 On linux hosts, the host and container machines can see each other, but on windows hosts they cannot. I suspect this has todo with broadcasting not being available in and out of containers on windows but I am unsure. 
 I also suspect one potential workaround would be to use a fast dds discovery server, but I haven't gotten that to work either yet.
