@@ -9,4 +9,4 @@ source /opt/ros/$ros_distro/setup.bash
 export ROS_DOMAIN_ID="42"
 export ROS_AUTOMATIC_DISCOVERY_RANGE="SUBNET"
 
-ros2 doctor hello
+ros2 run demo_nodes_cpp listener

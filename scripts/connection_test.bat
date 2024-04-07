@@ -1,4 +1,5 @@
 set ROS_DOMAIN_ID=42
 set ROS_AUTOMATIC_DISCOVERY_RANGE=SUBNET
+set ROS_DISCOVERY_SERVER=172.17.0.2:11811
 
-ros2 doctor hello
+ros2 run demo_nodes_cpp talker

@@ -2,6 +2,7 @@ FROM ros:rolling
 ARG USERNAME=USERNAME
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
+ARG DEBIAN_FRONTEND=noninteractive
 
 # Create the user
 RUN groupadd --gid $USER_GID $USERNAME \
@@ -14,11 +15,23 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y python3-pip
+RUN apt-get update && apt-get install -y iputils-ping traceroute iproute2 nmap netcat
+RUN apt-get update && \
+    apt-get install -y tshark && \
+    groupadd wireshark && \
+    usermod -aG wireshark ${USERNAME} && \
+    setcap 'CAP_NET_RAW+eip CAP_NET_ADMIN+eip' /usr/bin/dumpcap && \
+    chgrp wireshark /usr/bin/dumpcap && \
+    chmod 750 /usr/bin/dumpcap
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get install -y ros-rolling-demo-nodes-cpp
 ENV SHELL /bin/bash
 
 # ********************************************************
 # * Anything else you want to do like clean up goes here *
 # ********************************************************
+
+EXPOSE 11812/udp
 
 # [Optional] Set the default user. Omit if you want to keep the default as root.
 USER $USERNAME

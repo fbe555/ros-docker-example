@@ -25,16 +25,20 @@
     },
     "containerEnv": {
         // "DISPLAY": "unix:0",
-        "ROS_AUTOMATIC_DISCOVERY_RANGE": "SUBNET",
-        "ROS_DOMAIN_ID": "42"
+        "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+        "ROS_DOMAIN_ID": "42",
+        "ROS_DISCOVERY_SERVER": "127.0.0.1:11811;",
+        "FASTRTPS_DEFAULT_PROFILES_FILE": "/home/ws/fastrtps_profiles.xml",
     },
     "runArgs": [
         // "--net=host",
         // "-e", "DISPLAY=${env:DISPLAY}"
     ],
+    "appPort": ["11811:11811/udp",
+                "17910-18910:17910-18910/udp"], 
     // "mounts": [
     //    "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
     //     "source=/dev/dri,target=/dev/dri,type=bind,consistency=cached"
     // ],
-    "postCreateCommand": "sudo rosdep update && sudo rosdep install --from-paths src --ignore-src -y && sudo chown -R $(whoami) /home/ws/"
+    "postCreateCommand": "sudo rosdep update && sudo rosdep install --from-paths src --ignore-src -y && sudo chown -R $(whoami) /home/ws/ && echo 'source /opt/ros/rolling/setup.bash' >> /home/felix/.bashrc"
 }
